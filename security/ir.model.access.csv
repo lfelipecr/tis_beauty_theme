@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_website_theme_beauty_banner1,website,model_beauty_banner1,,1,0,0,0
+access_website_theme_beauty_banner1_designer,website,model_beauty_banner1,website.group_website_designer,1,1,1,1
+access_website_theme_beauty_banner2,website,model_beauty_banner2,,1,0,0,0
+access_website_theme_beauty_banner2_designer,website,model_beauty_banner2,website.group_website_designer,1,1,1,1
+access_website_theme_our_products,website,model_our_products,,1,0,0,0
+access_website_theme_our_products_designer,website,model_our_products,website.group_website_designer,1,1,1,1
+access_website_theme_popular_products,website,model_popular_products,,1,0,0,0
+access_website_theme_popular_products_designer,website,model_popular_products,website.group_website_designer,1,1,1,1
+access_website_theme_beauty_best,website,model_best_seller,,1,0,0,0
+access_website_theme_beauty_best_designer,website,model_best_seller,website.group_website_designer,1,1,1,1
+access_website_theme_beauty_category,website,model_beauty_product_category,,1,0,0,0
+access_website_theme_beauty_category_designer,website,model_beauty_product_category,website.group_website_designer,1,1,1,1

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_beauty_category_views" model="ir.actions.act_window">
+        <field name="name">Beauty Category</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">beauty.product.category</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p>
+                Click To Create New Category
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem action="action_beauty_category_views" id="beauty_category" name="Beauty Category"
+              parent="beauty_theme_root" sequence="1"/>
+
+    <record id="beauty_category_tree" model="ir.ui.view">
+        <field name="name">beauty.category.tree</field>
+        <field name="model">beauty.product.category</field>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="category_id" required="1"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

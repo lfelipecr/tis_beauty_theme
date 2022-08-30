@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- === Homepage Page === -->
+    <record id="beauty_homepage_view" model="ir.ui.view">
+        <field name="name">Home beauty</field>
+        <field name="type">qweb</field>
+        <field name="key">website.beauty_homepage_view</field>
+        <field name="arch" type="xml">
+            <t t-name="website.beauty_homepage">
+                <t t-call="website.layout">
+                    <t t-set="pageName" t-value="'homepage'"/>
+                    <div id="wrap">
+                        <div class="oe_structure"></div>
+                        <section class="banner">
+                            <div class="container-fluid wrap">
+                                <t t-foreach="website.get_main_banner_one()"
+                                   t-as="banner">
+                                    <div class="banner_bg"
+                                         t-attf-style="background-image:url('/website/image/beauty.banner1/{{banner.id}}/image1')">
+                                        <div class="row">
+                                            <div class="col-md-6">
+
+                                                <h1>
+                                                    <t t-esc="banner.header"></t>
+                                                </h1>
+                                                <p>
+                                                    <t t-esc="banner.description"></t>
+                                                </p>
+
+                                                <a href="#">
+                                                    <button>Shop Now</button>
+                                                </a>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </t>
+                            </div>
+                        </section>
+
+                        <div class="oe_structure"></div>
+
+                        <section class="category">
+                            <div class="container-fluid wrap">
+                                <h2>Shop By Categories</h2>
+
+                                <div class="row">
+                                    <t t-foreach="website.get_beauty_product_category()"
+                                       t-as="category">
+                                        <div class="col-lg-4 col-sm-6">
+                                            <div class="category_card">
+                                                <div class="d-flex align-items-center">
+                                                    <div>
+                                                        <h3>
+                                                            <t t-esc="category.category_id.name"></t>
+                                                        </h3>
+                                                        <p>
+                                                            <t t-esc="category.category_id.name"></t>
+                                                        </p>
+                                                        <a t-att-href="'/shop/category/%s' % slug(category.category_id)">
+                                                            <button class="product_btn_category">Buy</button>
+                                                        </a>
+                                                    </div>
+                                                    <div class="ml-auto">
+
+
+                                                        <img t-attf-src="/website/image/product.public.category/{{category.category_id.id}}/image_1920"
+                                                             t-att-alt="category.category_id.name"/>
+
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+
+                                </div>
+
+                            </div>
+                        </section>
+
+
+                        <div class="oe_structure"></div>
+                        <section class="popular_products mt-5">
+                            <div class="container-fluid wrap">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <h2 class="common_head">Popular products</h2>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <a href="#">
+                                            <button class="view-more-btn">View All</button>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <t t-foreach="website.get_popular_products()"
+                                       t-as="product">
+                                        <div class="col-lg-3 col-sm-6">
+                                            <div class="product_main">
+                                                <img t-attf-src="/website/image/product.template/{{product.product_id.id}}/image_1920"
+                                                     t-att-alt="product.product_id.name"/>
+                                                <div class="product_content">
+                                                    <div class="d-flex align-items-center">
+                                                        <div>
+                                                            <h4>
+                                                                <t t-esc="product.product_id.name"/>
+                                                            </h4>
+                                                            <h3>
+                                                                <span class="price">
+                                                                    <t t-set="combination_info"
+                                                                       t-value="product.product_id._get_combination_info(only_template=True, add_qty=add_qty or 1, pricelist=pricelist)"/>
+                                                                    <span t-if="combination_info['has_discounted_price']">
+                                                                        <del>
+                                                                            <span class="woocommerce-Price-amount amount">
+                                                                                <t t-esc="combination_info['list_price']"
+                                                                                   t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                                                                            </span>
+                                                                        </del>
+                                                                    </span>
+                                                                    <ins>
+                                                                        <span class="woocommerce-Price-amount amount">
+                                                                            <t t-esc="combination_info['price']"
+                                                                               t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                                                                        </span>
+                                                                    </ins>
+                                                                </span>
+                                                            </h3>
+                                                        </div>
+                                                        <div class="ml-auto">
+                                                            <a href="#">
+                                                                <button class="product_btn">
+                                                                    <img src="tis_beauty_theme/static/src/images/next.png"/>
+                                                                </button>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                        </section>
+
+                        <div class="oe_structure"></div>
+
+                        <section class="half_banner">
+                            <t t-foreach="website.get_full_banner_one()"
+                               t-as="half_banner">
+                                <div class="half_banner_bg"
+                                     t-attf-style="background-image:url('/website/image/beauty.banner2/{{half_banner.id}}/image1')">
+                                    <h1>
+                                        <t t-esc="half_banner.header"></t>
+                                    </h1>
+                                    <p>
+                                        <t t-esc="half_banner. caption"></t>
+                                    </p>
+                                    <div class="ml-auto ">
+                                        <a href="#">
+                                            <button class="view-more-btn ">Shop Now</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </t>
+                        </section>
+
+
+                        <div class="oe_structure"></div>
+                        <section class="popular_products mt-5">
+                            <div class="container-fluid wrap">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <h2 class="common_head">Our products</h2>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <a href="#">
+                                            <button class="view-more-btn">View All</button>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <t t-foreach="website.get_our_products()"
+                                       t-as="product">
+                                        <div class="col-lg-3 col-sm-6">
+                                            <div class="product_main">
+                                                <img t-attf-src="/website/image/product.template/{{product.product_id.id}}/image_1920"
+                                                     t-att-alt="product.product_id.name"/>
+                                                <div class="product_content">
+                                                    <div class="d-flex align-items-center">
+                                                        <div>
+                                                            <h4>
+                                                                <t t-esc="product.product_id.name"/>
+                                                            </h4>
+                                                            <h3>
+                                                                <span class="price">
+                                                                    <t t-set="combination_info"
+                                                                       t-value="product.product_id._get_combination_info(only_template=True, add_qty=add_qty or 1, pricelist=pricelist)"/>
+                                                                    <span t-if="combination_info['has_discounted_price']">
+                                                                        <del>
+                                                                            <span class="woocommerce-Price-amount amount">
+                                                                                <t t-esc="combination_info['list_price']"
+                                                                                   t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                                                                            </span>
+                                                                        </del>
+                                                                    </span>
+                                                                    <ins>
+                                                                        <span class="woocommerce-Price-amount amount">
+                                                                            <t t-esc="combination_info['price']"
+                                                                               t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                                                                        </span>
+                                                                    </ins>
+                                                                </span>
+                                                            </h3>
+                                                        </div>
+                                                        <div class="ml-auto">
+                                                            <a t-att-href="'/shop/product/%s' % slug(product.product_id)">
+                                                                <button class="product_btn">
+                                                                    <img src="/tis_beauty_theme/static/src/images/next.png"/>
+                                                                </button>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </t>
+                                </div>
+                            </div>
+                        </section>
+
+
+                        <div class="oe_structure"></div>
+                        <section class="popular_products mt-5">
+                            <div class="container-fluid wrap">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <h2 class="common_head">Best Sellers</h2>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <a href="#">
+                                            <button class="view-more-btn">View All</button>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <t t-foreach="website.get_best_seller()"
+                                       t-as="product">
+                                        <div class="col-lg-3 col-sm-6">
+                                            <div class="best_main">
+                                                <img t-attf-src="/website/image/product.template/{{product.product_id.id}}/image_1920"
+                                                     t-att-alt="product.product_id.name"/>
+                                            </div>
+                                        </div>
+                                    </t>
+
+                                </div>
+                            </div>
+                        </section>
+
+
+                        <div class="oe_structure"></div>
+
+                    </div>
+                </t>
+            </t>
+        </field>
+    </record>
+    <record id="beauty_homepage" model="website.page">
+        <field name="url">/beauty_homepage</field>
+        <field name="is_homepage" eval="True"></field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="beauty_homepage_view"/>
+    </record>
+
+</odoo>

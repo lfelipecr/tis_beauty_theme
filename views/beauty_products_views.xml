@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--..................OUR PRODUCTS..........................-->
+    <record id="action_our_products_views" model="ir.actions.act_window">
+        <field name="name">Our Products</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">our.products</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p>
+                Click to create New Product
+            </p>
+        </field>
+    </record>
+    <menuitem action="action_our_products_views" id="our_products" name="Our Products"
+              parent="beauty_theme_root" sequence="1"/>
+    <record id="our_products_tree" model="ir.ui.view">
+        <field name="name">our.products.form</field>
+        <field name="model">our.products</field>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+
+            <tree editable="bottom">
+                <field name="product_id" required="1"/>
+            </tree>
+        </field>
+    </record>
+<!--..................POPULAR PRODUCTS..........................-->
+
+        <record id="action_popular_products_views" model="ir.actions.act_window">
+        <field name="name">Popular Products</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">popular.products</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p>
+                Click to create New Product
+            </p>
+        </field>
+    </record>
+    <menuitem action="action_popular_products_views" id="popular_products" name="Popular Products"
+              parent="beauty_theme_root" sequence="1"/>
+    <record id="popular_products_tree" model="ir.ui.view">
+        <field name="name">popular.products.form</field>
+        <field name="model">popular.products</field>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+
+            <tree editable="bottom">
+                <field name="product_id" required="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--..................BEST PRODUCTS..........................-->
+
+        <record id="action_best_seller_views" model="ir.actions.act_window">
+        <field name="name">Best Seller</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">best.seller</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p>
+                Click to create New Product
+            </p>
+        </field>
+    </record>
+    <menuitem action="action_best_seller_views" id="best_seller" name="Best Sellers"
+              parent="beauty_theme_root" sequence="1"/>
+    <record id="best_seller_tree" model="ir.ui.view">
+        <field name="name">best.seller.form</field>
+        <field name="model">best.seller</field>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+
+            <tree editable="bottom">
+                <field name="product_id" required="1"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

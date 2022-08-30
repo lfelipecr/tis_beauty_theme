@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="beauty_assets" inherit_id="website.assets_frontend" name="Website Assets">
+            <xpath expr="//link[last()]" position="after">
+                <!--<link rel="stylesheet" href="/tis_beauty_theme/static/src/css/bootstrap.min.css"/>-->
+                <link rel="stylesheet" href="/tis_beauty_theme/static/src/css/owl.carousel.min.css"/>
+                <link rel="stylesheet" href="/tis_beauty_theme/static/src/css/font-awesome.min.css"/>
+                <link rel="stylesheet" href="/tis_beauty_theme/static/src/css/style.css"/>
+
+            </xpath>
+            <xpath expr="//script[last()]" position="after">
+               <!-- <script src="/tis_beauty_theme/static/src/js/bootstrap.min.js"></script>-->
+                <script src="/tis_beauty_theme/static/src/js/owl.carousel.min.js"></script>
+                <script src="/tis_beauty_theme/static/src/js/main.js"></script>
+            </xpath>
+        </template>
+        <template id="website_beauty_header" inherit_id="portal.frontend_layout"
+                  name="Website beauty Header">
+            <xpath expr="//header" position="replace">
+                <header class="">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <div class="container-fluid wrap">
+                            <a class="navbar-brand" href="#">
+                                <span t-field="res_company.logo" t-options="{'widget': 'image'}"
+                                      t-att-alt="'Logo of %s' % res_company.name"
+                                      t-att-title="res_company.name"/>
+                            </a>
+
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                    data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false"
+                                    aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse justify-content-between" id="navbarToggle">
+
+
+                                <ul class="navbar-nav ml-auto">
+                                    <t t-foreach="website.menu_id.child_id" t-as="submenu">
+                                        <t t-call="website.submenu">
+                                            <t t-set="item_class" t-value="'nav-item'"/>
+                                            <t t-set="link_class" t-value="'nav-link'"/>
+                                        </t>
+                                    </t>
+
+                                    <li class="nav-item">
+                                        <t t-if="request.website.viewref('website_sale_wishlist.add_to_wishlist').active">
+                                            <t t-set='wishcount'
+                                               t-value="len(request.env['product.wishlist'].current())"/>
+                                            <li class="nav-item o_wsale_my_wish" style="display: inline-block;"
+                                                t-att-style="not wishcount">
+                                                <a href="/shop/wishlist" class="nav-link wishlist">
+                                                    <img src="/tis_beauty_theme/static/src/images/wishlist.png"/>
+                                                    <sup t-attf-class="my_wish_quantity o_animate_blink badge badge-primary count">
+                                                        <t t-esc='wishcount'/>
+                                                    </sup>
+                                                </a>
+                                            </li>
+                                        </t>
+                                    </li>
+                                    <li class="nav-item">
+                                        <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
+                                        <li class="nav-item divider d-none"/>
+                                        <li t-attf-class="nav-item o_wsale_my_cart #{'' if website_sale_order and website_sale_order.cart_quantity else 'd-none'}">
+                                            <a href="/shop/cart" class="nav-link cart">
+                                                <img src="/tis_beauty_theme/static/src/images/cart.png"/>
+                                                <sup t-attf-class="my_cart_quantity badge badge-primary count"
+                                                     t-esc="website_sale_order and website_sale_order.cart_quantity or ''"/>
+                                            </a>
+                                        </li>
+                                    </li>
+                                    <!--<li class="nav-item">
+                                        <a class="nav-link" href="#">
+                                            <button>Login</button>
+                                        </a>
+                                    </li>-->
+                                    <li class="nav-item language">
+                                        <ul class="js_language_selector mb0 list-inline lang_sel"
+                                            t-if="(request and request.is_frontend_multilang and len(languages) &gt; 1) or (website and (editable or translatable))">
+                                            <li class="list-inline-item">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm dropdown-toggle language_btn "
+                                                            style="color: #fff !important;"
+                                                            type="button"
+                                                            data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="true">
+                                                        <span t-esc="list(filter(lambda lg : lg[0] == lang, languages))[0][2].split('/').pop()"/>
+                                                        <span class="caret ml4"/>
+                                                    </button>
+                                                    <div class="dropdown-menu" role="menu"
+                                                         style="background-color:rgb(255, 255, 255);">
+                                                        <t t-foreach="languages" t-as="lg">
+                                                            <a t-att-href="url_for(request.httprequest.path + '?' + keep_query(), lang_code=lg[0])"
+                                                               class="dropdown-item js_change_lang"
+                                                               t-att-data-url_code="lg[1]">
+                                                                <t t-esc="lg[2].split('/').pop()"/>
+                                                            </a>
+                                                        </t>
+                                                        <t t-set="url_return"
+                                                           t-value="quote_plus(url_for('', '[lang]') + '?' + keep_query())"/>
+                                                        <a class="language_drop" style="color:#1f1515;"
+                                                           t-attf-href="/web#action=base.action_view_base_language_install&amp;website_id=#{website.id if website else ''}&amp;url_return=#{url_return}">
+                                                            <i class="fa fa-plus-circle"/>
+                                                            Add a language...
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="user nav-item d-flex align-items-center">
+                                        <div class="authorization-link sign_in" data-label="or"
+                                             t-if="user_id._is_public()">
+                                            <a href="/web/login">Sign in</a>
+                                        </div>
+                                        <div class="dropdown" t-ignore="true"
+                                             t-if="not user_id._is_public()">
+                                            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                                <button>
+                                                    <span t-esc="user_id.name[:23] + '...' if user_id.name and len(user_id.name) &gt; 25 else user_id.name"
+                                                          class="d-sm-inline"/>
+                                                    <span class="caret"></span>
+                                                </button>
+                                            </a>
+                                            <ul class="dropdown-menu js_usermenu" role="menu">
+                                                <li class="dropdown-item">
+                                                    <a href="/my/home" role="menuitem">My Account</a>
+                                                </li>
+                                                <li class="dropdown-item" id="o_logout">
+                                                    <a t-attf-href="/web/session/logout?redirect=/"
+                                                       role="menuitem">
+                                                        Logout
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </header>
+            </xpath>
+        </template>
+
+
+        <template id="theme_footer_beauty" inherit_id="website.footer_custom"
+                  name="beauty Footer">
+            <xpath expr="//div[@id='footer']" position="replace">
+                <footer class="">
+                    <div class="container-fluid wrap">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <span t-field="res_company.logo" t-options="{'widget': 'image'}"
+                                      t-att-alt="'Logo of %s' % res_company.name"
+                                      t-att-title="res_company.name"/>
+                                <p>Lorem Ipsum is simply dummy text
+                                    <br/>
+                                    of the
+                                    printing and typesetting industry.
+                                    <br/>
+                                    Lorem Ipsum
+                                </p>
+
+                            </div>
+                            <div class="col-md-2 col-6">
+                                <h6>Shop</h6>
+                                <ul>
+                                    <li>
+                                        <a href="#">Fancy lighting</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Kiara Lights</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Light Palace
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Changi Lighting</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">LED House</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-2 col-6">
+                                <h6>Help Center</h6>
+                                <ul>
+                                    <li>
+                                        <a href="#">Payments</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Shipping</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Returns</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">FAQs</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Checkout</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <h6>Subscribe Now</h6>
+                                <div class="s_newsletter_subscribe_form js_subscribe" data-vxml="001"
+                                     data-list-id="1">
+                                    <div class="input-group footer-subscription">
+                                        <input type="email" name="email" class="js_subscribe_email form-control"
+                                               placeholder="your email..."/>
+                                        <div class="input-group-append">
+                                            <span role="button" href="#" class="js_subscribe_btn o_submit">
+                                                Subscribe
+                                            </span>
+                                            <span role="button" href="#"
+                                                  class="js_subscribed_btn d-none o_submit"
+                                                  disabled="disabled">Thanks
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="row copy_rght">
+                            <div class="col-md-7">
+                                <div class="d-flex justify-content-start align-items-center ftr_dflex_1">
+                                    <div>
+                                        <p>Copyright © 2021 access All Right Reserved.</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="d-flex justify-content-end ftr_dflex_2 align-items-center">
+                                    <ul class="d-flex">
+                                        Privacy | Terms
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </footer>
+
+            </xpath>
+        </template>
+
+        <template id="footer_copyright_beauty" inherit_id="website.layout"
+                  name="beauty Copyright">
+            <xpath expr="//div[hasclass('o_footer_copyright')]" position="replace">
+
+            </xpath>
+        </template>
+
+
+    </data>
+</odoo>
