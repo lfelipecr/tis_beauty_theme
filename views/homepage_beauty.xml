@@ -29,7 +29,7 @@
                                                 </p>
 
                                                 <a href="#">
-                                                    <button>Shop Now</button>
+                                                    <button>Comprar</button>
                                                 </a>
 
                                             </div>
@@ -44,7 +44,7 @@
 
                         <section class="category">
                             <div class="container-fluid wrap">
-                                <h2>Shop By Categories</h2>
+                                <h2>Categorias</h2>
 
                                 <div class="row">
                                     <t t-foreach="website.get_beauty_product_category()"
@@ -60,7 +60,7 @@
                                                             <t t-esc="category.category_id.name"></t>
                                                         </p>
                                                         <a t-att-href="'/shop/category/%s' % slug(category.category_id)">
-                                                            <button class="product_btn_category">Buy</button>
+                                                            <button class="product_btn_category">Comprar</button>
                                                         </a>
                                                     </div>
                                                     <div class="ml-auto">
@@ -88,11 +88,11 @@
                             <div class="container-fluid wrap">
                                 <div class="d-flex align-items-center">
                                     <div>
-                                        <h2 class="common_head">Popular products</h2>
+                                        <h2 class="common_head">Productos Populares</h2>
                                     </div>
                                     <div class="ml-auto">
                                         <a href="#">
-                                            <button class="view-more-btn">View All</button>
+                                            <button class="view-more-btn">Ver todo</button>
                                         </a>
                                     </div>
                                 </div>
@@ -161,7 +161,7 @@
                                     </p>
                                     <div class="ml-auto ">
                                         <a href="#">
-                                            <button class="view-more-btn ">Shop Now</button>
+                                            <button class="view-more-btn ">Comprar</button>
                                         </a>
                                     </div>
                                 </div>
@@ -174,11 +174,11 @@
                             <div class="container-fluid wrap">
                                 <div class="d-flex align-items-center">
                                     <div>
-                                        <h2 class="common_head">Our products</h2>
+                                        <h2 class="common_head">Productos</h2>
                                     </div>
                                     <div class="ml-auto">
                                         <a href="#">
-                                            <button class="view-more-btn">View All</button>
+                                            <button class="view-more-btn">Ver todo</button>
                                         </a>
                                     </div>
                                 </div>
@@ -239,11 +239,11 @@
                             <div class="container-fluid wrap">
                                 <div class="d-flex align-items-center">
                                     <div>
-                                        <h2 class="common_head">Best Sellers</h2>
+                                        <h2 class="common_head">Mas vendidos</h2>
                                     </div>
                                     <div class="ml-auto">
                                         <a href="#">
-                                            <button class="view-more-btn">View All</button>
+                                            <button class="view-more-btn">Ver todo</button>
                                         </a>
                                     </div>
                                 </div>
